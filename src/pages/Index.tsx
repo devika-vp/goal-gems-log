@@ -1,13 +1,15 @@
-// Update this page (the content is just a fallback if you fail to update the page)
+import { StudyDashboard } from '@/components/study/StudyDashboard';
+import { Helmet } from 'react-helmet-async';
 
 const Index = () => {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background">
-      <div className="text-center">
-        <h1 className="mb-4 text-4xl font-bold">Welcome to Your Blank App</h1>
-        <p className="text-xl text-muted-foreground">Start building your amazing project here!</p>
-      </div>
-    </div>
+    <>
+      <Helmet>
+        <title>Study Tracker - Track Your Learning Progress</title>
+        <meta name="description" content="Track your daily study hours, set goals, and monitor your progress with our beautiful study tracker. Features subject-wise breakdown, weekly and monthly totals." />
+      </Helmet>
+      <StudyDashboard />
+    </>
   );
 };
 
