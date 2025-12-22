@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { StudySession, Subject, DailyGoal, StudyStats, StatusType } from '@/types/study';
+import { StudySession, Subject, DailyGoal, StudyStats, StatusType, ScheduleItem, AcademicEvent, EventType } from '@/types/study';
 import { 
   startOfDay, 
   startOfWeek, 
@@ -8,7 +8,8 @@ import {
   endOfWeek, 
   endOfMonth,
   isWithinInterval,
-  parseISO
+  parseISO,
+  format
 } from 'date-fns';
 
 const DEFAULT_SUBJECTS: Subject[] = [
@@ -23,12 +24,16 @@ const STORAGE_KEYS = {
   sessions: 'study-tracker-sessions',
   subjects: 'study-tracker-subjects',
   dailyGoal: 'study-tracker-daily-goal',
+  schedule: 'study-tracker-schedule',
+  events: 'study-tracker-events',
 };
 
 export function useStudyTracker() {
   const [sessions, setSessions] = useState<StudySession[]>([]);
   const [subjects, setSubjects] = useState<Subject[]>(DEFAULT_SUBJECTS);
   const [dailyGoal, setDailyGoal] = useState<DailyGoal>({ hours: 6 });
+  const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
+  const [events, setEvents] = useState<AcademicEvent[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load from localStorage
@@ -36,6 +41,8 @@ export function useStudyTracker() {
     const storedSessions = localStorage.getItem(STORAGE_KEYS.sessions);
     const storedSubjects = localStorage.getItem(STORAGE_KEYS.subjects);
     const storedGoal = localStorage.getItem(STORAGE_KEYS.dailyGoal);
+    const storedSchedule = localStorage.getItem(STORAGE_KEYS.schedule);
+    const storedEvents = localStorage.getItem(STORAGE_KEYS.events);
 
     if (storedSessions) {
       setSessions(JSON.parse(storedSessions));
@@ -45,6 +52,12 @@ export function useStudyTracker() {
     }
     if (storedGoal) {
       setDailyGoal(JSON.parse(storedGoal));
+    }
+    if (storedSchedule) {
+      setSchedule(JSON.parse(storedSchedule));
+    }
+    if (storedEvents) {
+      setEvents(JSON.parse(storedEvents));
     }
     setIsLoaded(true);
   }, []);
@@ -67,6 +80,18 @@ export function useStudyTracker() {
       localStorage.setItem(STORAGE_KEYS.dailyGoal, JSON.stringify(dailyGoal));
     }
   }, [dailyGoal, isLoaded]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEYS.schedule, JSON.stringify(schedule));
+    }
+  }, [schedule, isLoaded]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEYS.events, JSON.stringify(events));
+    }
+  }, [events, isLoaded]);
 
   // Calculate stats
   const stats: StudyStats = useMemo(() => {
@@ -180,6 +205,58 @@ export function useStudyTracker() {
     });
   }, [sessions]);
 
+  // Today's schedule
+  const todaySchedule = useMemo(() => {
+    const today = format(new Date(), 'yyyy-MM-dd');
+    return schedule.filter(s => s.date === today);
+  }, [schedule]);
+
+  // Schedule functions
+  const addScheduleItem = (time: string, task: string) => {
+    const today = format(new Date(), 'yyyy-MM-dd');
+    const newItem: ScheduleItem = {
+      id: Date.now().toString(),
+      time,
+      task,
+      completed: false,
+      date: today,
+    };
+    setSchedule(prev => [...prev, newItem]);
+  };
+
+  const toggleScheduleItem = (id: string) => {
+    setSchedule(prev => prev.map(item => 
+      item.id === id ? { ...item, completed: !item.completed } : item
+    ));
+  };
+
+  const deleteScheduleItem = (id: string) => {
+    setSchedule(prev => prev.filter(s => s.id !== id));
+  };
+
+  // Academic events functions
+  const addEvent = (title: string, subject: string, date: string, type: EventType) => {
+    const newEvent: AcademicEvent = {
+      id: Date.now().toString(),
+      title,
+      subject,
+      date,
+      type,
+      completed: false,
+    };
+    setEvents(prev => [...prev, newEvent]);
+  };
+
+  const toggleEvent = (id: string) => {
+    setEvents(prev => prev.map(event => 
+      event.id === id ? { ...event, completed: !event.completed } : event
+    ));
+  };
+
+  const deleteEvent = (id: string) => {
+    setEvents(prev => prev.filter(e => e.id !== id));
+  };
+
   return {
     sessions,
     subjects,
@@ -187,10 +264,18 @@ export function useStudyTracker() {
     stats,
     subjectHours,
     todaySessions,
+    todaySchedule,
+    events,
     addSession,
     deleteSession,
     updateDailyGoal,
     addSubject,
+    addScheduleItem,
+    toggleScheduleItem,
+    deleteScheduleItem,
+    addEvent,
+    toggleEvent,
+    deleteEvent,
     isLoaded,
   };
 }
