@@ -26,3 +26,22 @@ export interface StudyStats {
   percentComplete: number;
   status: StatusType;
 }
+
+export interface ScheduleItem {
+  id: string;
+  time: string;
+  task: string;
+  completed: boolean;
+  date: string; // ISO date string
+}
+
+export type EventType = 'assignment' | 'exam';
+
+export interface AcademicEvent {
+  id: string;
+  title: string;
+  subject: string;
+  date: string; // ISO date string
+  type: EventType;
+  completed: boolean;
+}

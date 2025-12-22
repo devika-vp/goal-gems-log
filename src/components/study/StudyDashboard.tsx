@@ -5,7 +5,9 @@ import { SubjectBreakdown } from './SubjectBreakdown';
 import { AddSessionDialog } from './AddSessionDialog';
 import { GoalSetter } from './GoalSetter';
 import { TodaySessions } from './TodaySessions';
-import { Target, TrendingUp, Calendar, BookOpen } from 'lucide-react';
+import { DailySchedule } from './DailySchedule';
+import { AcademicEvents } from './AcademicEvents';
+import { Target, TrendingUp, Calendar, BookOpen, ClipboardList, CalendarCheck } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function StudyDashboard() {
@@ -14,9 +16,17 @@ export function StudyDashboard() {
     stats,
     subjectHours,
     todaySessions,
+    todaySchedule,
+    events,
     addSession,
     deleteSession,
     updateDailyGoal,
+    addScheduleItem,
+    toggleScheduleItem,
+    deleteScheduleItem,
+    addEvent,
+    toggleEvent,
+    deleteEvent,
     isLoaded,
   } = useStudyTracker();
 
@@ -155,10 +165,44 @@ export function StudyDashboard() {
           />
         </section>
 
-        {/* Two Column Layout */}
+        {/* Daily Schedule & Academic Events */}
+        <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+          {/* Daily Schedule */}
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '350ms' }}>
+            <div className="flex items-center gap-2 mb-4">
+              <ClipboardList className="w-5 h-5 text-primary" />
+              <h3 className="font-display text-lg font-semibold">Daily Schedule</h3>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4">Plan your study tasks for today</p>
+            <DailySchedule 
+              schedule={todaySchedule}
+              onAddItem={addScheduleItem}
+              onToggleItem={toggleScheduleItem}
+              onDeleteItem={deleteScheduleItem}
+            />
+          </div>
+
+          {/* Assignments & Exams */}
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '400ms' }}>
+            <div className="flex items-center gap-2 mb-4">
+              <CalendarCheck className="w-5 h-5 text-primary" />
+              <h3 className="font-display text-lg font-semibold">Assignments & Exams</h3>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4">Track upcoming deadlines</p>
+            <AcademicEvents 
+              events={events}
+              subjects={subjects}
+              onAddEvent={addEvent}
+              onToggleEvent={toggleEvent}
+              onDeleteEvent={deleteEvent}
+            />
+          </div>
+        </section>
+
+        {/* Two Column Layout - Subject & Sessions */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Subject Breakdown */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '400ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '450ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Subject Breakdown</h3>
             <p className="text-xs text-muted-foreground mb-4">Monthly hours by subject</p>
             <SubjectBreakdown subjects={subjectHours} />
