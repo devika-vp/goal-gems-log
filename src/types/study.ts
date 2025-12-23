@@ -53,5 +53,7 @@ export interface TextbookReference {
   author?: string;
   pages?: string;
   notes: string;
-  createdAt: string; // ISO date string
+  pdf_url?: string;
+  pdf_name?: string;
+  created_at: string; // ISO date string
 }

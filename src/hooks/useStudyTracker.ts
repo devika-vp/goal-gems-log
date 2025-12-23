@@ -270,7 +270,7 @@ export function useStudyTracker() {
   };
 
   // Textbook references functions
-  const addReference = (subject: string, title: string, author: string, pages: string, notes: string) => {
+  const addReference = (subject: string, title: string, author: string, pages: string, notes: string, pdfUrl?: string, pdfName?: string) => {
     const newReference: TextbookReference = {
       id: Date.now().toString(),
       subject,
@@ -278,7 +278,9 @@ export function useStudyTracker() {
       author: author || undefined,
       pages: pages || undefined,
       notes,
-      createdAt: new Date().toISOString(),
+      pdf_url: pdfUrl,
+      pdf_name: pdfName,
+      created_at: new Date().toISOString(),
     };
     setReferences(prev => [newReference, ...prev]);
   };
