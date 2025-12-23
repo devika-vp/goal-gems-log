@@ -8,7 +8,8 @@ import { TodaySessions } from './TodaySessions';
 import { DailySchedule } from './DailySchedule';
 import { AcademicEvents } from './AcademicEvents';
 import { CalendarView } from './CalendarView';
-import { Target, TrendingUp, Calendar, BookOpen, ClipboardList, CalendarCheck, CalendarDays } from 'lucide-react';
+import { TextbookNotes } from './TextbookNotes';
+import { Target, TrendingUp, Calendar, BookOpen, ClipboardList, CalendarCheck, CalendarDays, BookText } from 'lucide-react';
 import { cn } from '@/lib/utils';
 
 export function StudyDashboard() {
@@ -20,6 +21,7 @@ export function StudyDashboard() {
     todaySessions,
     todaySchedule,
     events,
+    references,
     addSession,
     deleteSession,
     updateDailyGoal,
@@ -29,6 +31,8 @@ export function StudyDashboard() {
     addEvent,
     toggleEvent,
     deleteEvent,
+    addReference,
+    deleteReference,
     isLoaded,
   } = useStudyTracker();
 
@@ -216,17 +220,34 @@ export function StudyDashboard() {
           </div>
         </section>
 
+        {/* Textbook References & Notes */}
+        <section className="animate-fade-in" style={{ animationDelay: '500ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6">
+            <div className="flex items-center gap-2 mb-4">
+              <BookText className="w-5 h-5 text-primary" />
+              <h3 className="font-display text-lg font-semibold">Textbook References & Notes</h3>
+            </div>
+            <p className="text-xs text-muted-foreground mb-4">Store important references and study notes</p>
+            <TextbookNotes 
+              references={references}
+              subjects={subjects}
+              onAddReference={addReference}
+              onDeleteReference={deleteReference}
+            />
+          </div>
+        </section>
+
         {/* Two Column Layout - Subject & Sessions */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Subject Breakdown */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '500ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '550ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Subject Breakdown</h3>
             <p className="text-xs text-muted-foreground mb-4">Monthly hours by subject</p>
             <SubjectBreakdown subjects={subjectHours} />
           </div>
 
           {/* Today's Sessions */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '550ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '600ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Today's Sessions</h3>
             <p className="text-xs text-muted-foreground mb-4">{todaySessions.length} session{todaySessions.length !== 1 ? 's' : ''} logged</p>
             <TodaySessions 

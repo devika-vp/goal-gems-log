@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react';
-import { StudySession, Subject, DailyGoal, StudyStats, StatusType, ScheduleItem, AcademicEvent, EventType } from '@/types/study';
+import { StudySession, Subject, DailyGoal, StudyStats, StatusType, ScheduleItem, AcademicEvent, EventType, TextbookReference } from '@/types/study';
 import { 
   startOfDay, 
   startOfWeek, 
@@ -26,6 +26,7 @@ const STORAGE_KEYS = {
   dailyGoal: 'study-tracker-daily-goal',
   schedule: 'study-tracker-schedule',
   events: 'study-tracker-events',
+  references: 'study-tracker-references',
 };
 
 export function useStudyTracker() {
@@ -34,6 +35,7 @@ export function useStudyTracker() {
   const [dailyGoal, setDailyGoal] = useState<DailyGoal>({ hours: 6 });
   const [schedule, setSchedule] = useState<ScheduleItem[]>([]);
   const [events, setEvents] = useState<AcademicEvent[]>([]);
+  const [references, setReferences] = useState<TextbookReference[]>([]);
   const [isLoaded, setIsLoaded] = useState(false);
 
   // Load from localStorage
@@ -43,6 +45,7 @@ export function useStudyTracker() {
     const storedGoal = localStorage.getItem(STORAGE_KEYS.dailyGoal);
     const storedSchedule = localStorage.getItem(STORAGE_KEYS.schedule);
     const storedEvents = localStorage.getItem(STORAGE_KEYS.events);
+    const storedReferences = localStorage.getItem(STORAGE_KEYS.references);
 
     if (storedSessions) {
       setSessions(JSON.parse(storedSessions));
@@ -58,6 +61,9 @@ export function useStudyTracker() {
     }
     if (storedEvents) {
       setEvents(JSON.parse(storedEvents));
+    }
+    if (storedReferences) {
+      setReferences(JSON.parse(storedReferences));
     }
     setIsLoaded(true);
   }, []);
@@ -92,6 +98,12 @@ export function useStudyTracker() {
       localStorage.setItem(STORAGE_KEYS.events, JSON.stringify(events));
     }
   }, [events, isLoaded]);
+
+  useEffect(() => {
+    if (isLoaded) {
+      localStorage.setItem(STORAGE_KEYS.references, JSON.stringify(references));
+    }
+  }, [references, isLoaded]);
 
   // Calculate stats
   const stats: StudyStats = useMemo(() => {
@@ -257,6 +269,24 @@ export function useStudyTracker() {
     setEvents(prev => prev.filter(e => e.id !== id));
   };
 
+  // Textbook references functions
+  const addReference = (subject: string, title: string, author: string, pages: string, notes: string) => {
+    const newReference: TextbookReference = {
+      id: Date.now().toString(),
+      subject,
+      title,
+      author: author || undefined,
+      pages: pages || undefined,
+      notes,
+      createdAt: new Date().toISOString(),
+    };
+    setReferences(prev => [newReference, ...prev]);
+  };
+
+  const deleteReference = (id: string) => {
+    setReferences(prev => prev.filter(r => r.id !== id));
+  };
+
   return {
     sessions,
     subjects,
@@ -266,6 +296,7 @@ export function useStudyTracker() {
     todaySessions,
     todaySchedule,
     events,
+    references,
     addSession,
     deleteSession,
     updateDailyGoal,
@@ -276,6 +307,8 @@ export function useStudyTracker() {
     addEvent,
     toggleEvent,
     deleteEvent,
+    addReference,
+    deleteReference,
     isLoaded,
   };
 }
