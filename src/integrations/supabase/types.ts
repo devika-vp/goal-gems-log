@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      textbook_references: {
+        Row: {
+          author: string | null
+          created_at: string
+          id: string
+          notes: string | null
+          pages: string | null
+          pdf_name: string | null
+          pdf_url: string | null
+          subject: string
+          title: string
+        }
+        Insert: {
+          author?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          pages?: string | null
+          pdf_name?: string | null
+          pdf_url?: string | null
+          subject: string
+          title: string
+        }
+        Update: {
+          author?: string | null
+          created_at?: string
+          id?: string
+          notes?: string | null
+          pages?: string | null
+          pdf_name?: string | null
+          pdf_url?: string | null
+          subject?: string
+          title?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
