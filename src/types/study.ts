@@ -45,3 +45,13 @@ export interface AcademicEvent {
   type: EventType;
   completed: boolean;
 }
+
+export interface TextbookReference {
+  id: string;
+  subject: string;
+  title: string;
+  author?: string;
+  pages?: string;
+  notes: string;
+  createdAt: string; // ISO date string
+}
