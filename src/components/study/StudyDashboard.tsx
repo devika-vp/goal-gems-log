@@ -207,7 +207,7 @@ export function StudyDashboard() {
 
         {/* Calendar View */}
         <section className="animate-fade-in" style={{ animationDelay: '450ms' }}>
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6">
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5">
             <div className="flex items-center gap-2 mb-4">
               <CalendarDays className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Monthly Calendar</h3>
