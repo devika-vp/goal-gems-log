@@ -174,7 +174,7 @@ export function StudyDashboard() {
         {/* Daily Schedule & Academic Events */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Daily Schedule */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '350ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '350ms' }}>
             <div className="flex items-center gap-2 mb-4">
               <ClipboardList className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Daily Schedule</h3>
