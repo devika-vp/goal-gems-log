@@ -247,7 +247,7 @@ export function StudyDashboard() {
           </div>
 
           {/* Today's Sessions */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '600ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '600ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Today's Sessions</h3>
             <p className="text-xs text-muted-foreground mb-4">{todaySessions.length} session{todaySessions.length !== 1 ? 's' : ''} logged</p>
             <TodaySessions 
