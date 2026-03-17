@@ -240,7 +240,7 @@ export function StudyDashboard() {
         {/* Two Column Layout - Subject & Sessions */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Subject Breakdown */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '550ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '550ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Subject Breakdown</h3>
             <p className="text-xs text-muted-foreground mb-4">Monthly hours by subject</p>
             <SubjectBreakdown subjects={subjectHours} />
