@@ -222,7 +222,7 @@ export function StudyDashboard() {
 
         {/* Textbook References & Notes */}
         <section className="animate-fade-in" style={{ animationDelay: '500ms' }}>
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6">
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5">
             <div className="flex items-center gap-2 mb-4">
               <BookText className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Textbook References & Notes</h3>
