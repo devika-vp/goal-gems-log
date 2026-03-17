@@ -62,7 +62,7 @@ export function StudyDashboard() {
       <header className="border-b border-border/50 bg-card/50 backdrop-blur-sm sticky top-0 z-10">
         <div className="container mx-auto px-4 py-4 flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center">
+            <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center transition-transform duration-200 hover:scale-110">
               <BookOpen className="w-5 h-5 text-primary-foreground" />
             </div>
             <div>
@@ -77,7 +77,7 @@ export function StudyDashboard() {
       <main className="container mx-auto px-4 py-8 space-y-8">
         {/* Hero Section - Daily Progress */}
         <section className="animate-fade-in">
-          <div className="bg-card rounded-2xl border border-border shadow-card p-8">
+          <div className="bg-card rounded-2xl border border-border shadow-card p-8 transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5">
             <div className="flex flex-col lg:flex-row items-center gap-8">
               {/* Progress Ring */}
               <div className="flex-shrink-0">
@@ -174,7 +174,7 @@ export function StudyDashboard() {
         {/* Daily Schedule & Academic Events */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Daily Schedule */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '350ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '350ms' }}>
             <div className="flex items-center gap-2 mb-4">
               <ClipboardList className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Daily Schedule</h3>
@@ -189,7 +189,7 @@ export function StudyDashboard() {
           </div>
 
           {/* Assignments & Exams */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '400ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '400ms' }}>
             <div className="flex items-center gap-2 mb-4">
               <CalendarCheck className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Assignments & Exams</h3>
@@ -207,7 +207,7 @@ export function StudyDashboard() {
 
         {/* Calendar View */}
         <section className="animate-fade-in" style={{ animationDelay: '450ms' }}>
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6">
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5">
             <div className="flex items-center gap-2 mb-4">
               <CalendarDays className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Monthly Calendar</h3>
@@ -222,7 +222,7 @@ export function StudyDashboard() {
 
         {/* Textbook References & Notes */}
         <section className="animate-fade-in" style={{ animationDelay: '500ms' }}>
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6">
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5">
             <div className="flex items-center gap-2 mb-4">
               <BookText className="w-5 h-5 text-primary" />
               <h3 className="font-display text-lg font-semibold">Textbook References & Notes</h3>
@@ -240,14 +240,14 @@ export function StudyDashboard() {
         {/* Two Column Layout - Subject & Sessions */}
         <section className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {/* Subject Breakdown */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '550ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '550ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Subject Breakdown</h3>
             <p className="text-xs text-muted-foreground mb-4">Monthly hours by subject</p>
             <SubjectBreakdown subjects={subjectHours} />
           </div>
 
           {/* Today's Sessions */}
-          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in" style={{ animationDelay: '600ms' }}>
+          <div className="bg-card rounded-2xl border border-border shadow-card p-6 animate-fade-in transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5" style={{ animationDelay: '600ms' }}>
             <h3 className="font-display text-lg font-semibold mb-4">Today's Sessions</h3>
             <p className="text-xs text-muted-foreground mb-4">{todaySessions.length} session{todaySessions.length !== 1 ? 's' : ''} logged</p>
             <TodaySessions 

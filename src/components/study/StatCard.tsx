@@ -35,7 +35,7 @@ export function StatCard({
   return (
     <div 
       className={cn(
-        'p-6 rounded-xl border shadow-card transition-all duration-300 hover:shadow-card-hover animate-fade-in',
+        'p-6 rounded-xl border shadow-card transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-1 hover:border-primary/20 animate-fade-in cursor-default',
         variantStyles[variant]
       )}
       style={{ animationDelay: `${delay}ms` }}

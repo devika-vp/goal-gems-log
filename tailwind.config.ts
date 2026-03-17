@@ -88,10 +88,11 @@ export default {
       },
       boxShadow: {
         'card': '0 4px 6px -1px hsl(var(--primary) / 0.05), 0 2px 4px -2px hsl(var(--primary) / 0.05)',
-        'card-hover': '0 10px 15px -3px hsl(var(--primary) / 0.1), 0 4px 6px -4px hsl(var(--primary) / 0.1)',
+        'card-hover': '0 20px 25px -5px hsl(var(--primary) / 0.12), 0 8px 10px -6px hsl(var(--primary) / 0.08)',
         'glow-success': '0 0 20px hsl(var(--success) / 0.3)',
         'glow-warning': '0 0 20px hsl(var(--warning) / 0.3)',
         'glow-danger': '0 0 20px hsl(var(--danger) / 0.3)',
+        'glow-primary': '0 0 20px hsl(var(--primary) / 0.3)',
       },
       keyframes: {
         "accordion-down": {
