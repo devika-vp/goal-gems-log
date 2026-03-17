@@ -77,7 +77,7 @@ export function StudyDashboard() {
       <main className="container mx-auto px-4 py-8 space-y-8">
         {/* Hero Section - Daily Progress */}
         <section className="animate-fade-in">
-          <div className="bg-card rounded-2xl border border-border shadow-card p-8">
+          <div className="bg-card rounded-2xl border border-border shadow-card p-8 transition-all duration-300 ease-out hover:shadow-card-hover hover:-translate-y-0.5">
             <div className="flex flex-col lg:flex-row items-center gap-8">
               {/* Progress Ring */}
               <div className="flex-shrink-0">
